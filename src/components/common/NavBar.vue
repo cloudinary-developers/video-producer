@@ -1,7 +1,7 @@
 <template>
   <v-toolbar app>
     <v-btn icon>
-      <img src="http://res.cloudinary.com/christekh/image/upload/v1529615941/blue_bg_qh6qvg.png" alt="Logo">
+      <img src="http://res.cloudinary.com/christekh/image/upload/w_28/v1529615941/blue_bg_qh6qvg.png" alt="Logo">
     </v-btn>
     <div class="logo-divider"></div>
     <v-toolbar-title v-text="title"></v-toolbar-title>
