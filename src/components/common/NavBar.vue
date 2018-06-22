@@ -40,7 +40,7 @@ export default {
 }
 .logo-divider {
   background-color: rgba(255, 255, 255, 0.1);
-  width: 1px;
+  width: 0px;
   height: 60%;
   margin-left: 10px;
 }
