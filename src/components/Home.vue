@@ -4,7 +4,7 @@
       <v-flex xs6>
         <Window>
           <template slot="window-header">
-            <v-icon>photo_library</v-icon> &nbsp;Media
+            <v-icon>photo_library</v-icon> &nbsp;<Breadcrumbs></Breadcrumbs>
           </template>
           <template slot="window-content">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam placeat amet rerum, est aut animi dicta iste vero cumque iusto repellat quas nobis? Alias delectus quo enim sint, explicabo at.
@@ -39,9 +39,11 @@
 
 <script>
 import Window from './common/Window';
+import Breadcrumbs from './common/Breadcrumbs';
 export default {
   components: {
-    Window
+    Window,
+    Breadcrumbs
   }
 };
 </script>
