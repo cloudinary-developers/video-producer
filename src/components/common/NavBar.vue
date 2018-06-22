@@ -1,7 +1,6 @@
 <template>
-  <v-toolbar app :clipped-left="clipped">
+  <v-toolbar app>
     <v-btn icon>
-      <!-- <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon> -->
       <img src="http://res.cloudinary.com/christekh/image/upload/v1529615941/blue_bg_qh6qvg.png" alt="Logo">
     </v-btn>
     <div class="logo-divider"></div>
