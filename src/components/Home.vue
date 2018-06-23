@@ -22,7 +22,7 @@
                   <v-toolbar-title class="white--text"> Now Playing </v-toolbar-title>
           </template>
           <template slot="window-content">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam placeat amet rerum, est aut animi dicta iste vero cumque iusto repellat quas nobis? Alias delectus quo enim sint, explicabo at.
+           <VideoPlayer></VideoPlayer>
           </template>
         </Window>
       </v-flex>
@@ -48,12 +48,14 @@ import Window from './common/Window';
 import Breadcrumbs from './common/Breadcrumbs';
 import FileUploader from './common/FileUploader';
 import AssetList from './common/AssetList';
+import VideoPlayer from './common/VideoPlayer';
 export default {
   components: {
     Window,
     Breadcrumbs,
     FileUploader,
-    AssetList
+    AssetList,
+    VideoPlayer
   }
 };
 </script>
