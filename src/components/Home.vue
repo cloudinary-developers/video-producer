@@ -57,15 +57,14 @@ export default {
     AssetList,
     VideoPlayer
   }, 
-  watch: {
-    // whenever question changes, this function will run
-    source: function (newData, oldData) {
-      this.videoSource = newData;
-    }
-  },
+  // watch: {
+  //   // whenever question changes, this function will run
+  //   source: function (newData, oldData) {
+  //     this.videoSource = newData;
+  //   }
+  // },
   data() {
     return {
-      videoSource: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4",
       source: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4"
     };
   },
@@ -76,7 +75,7 @@ export default {
       this.source = url.replace('.mov','.mp4');
       console.log(this.source);
       
-      document.querySelector('#videoPlayer').src = this.source
+     // document.querySelector('#videoPlayer').src = this.source
       //alert(this.source);
     }
   }

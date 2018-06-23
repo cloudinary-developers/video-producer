@@ -1,8 +1,8 @@
 <template>
   <div class="video-container">
  	<v-container fluid>
-  	<video controls="yes" autoplay="no" name="media">
-  		<source :src="source" type="video/mp4">
+  	<video controls="yes" autoplay="no" name="media" id="videoPlayerPreview">
+  		<source :src="src" type="video/mp4">
   	</video>
     </v-container>
   </div>
@@ -14,20 +14,30 @@ export default {
   name: 'video-player',
   data: () => ({
     video: {}, 
-    resources: []
+    resources: [],
+    src: ''
   }),
+   watch: {
+    // whenever question changes, this function will run
+    source: function (newData, oldData) {
+    	console.log('Watching:', newData,oldData)
+    	this.src = newData;
+    	document.querySelector('#videoPlayerPreview').src = newData;
+    }
+  },
 
   methods: {
-    previewItem(item){
-      console.log(item);
-    },
-    createPreviewVideo(video){
-      return video.secure_url.replace('.png','.mp4').
-      replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
-    }
+    // previewItem(item){
+    //   console.log(item);
+    // },
+    // createPreviewVideo(video){
+    //   return video.secure_url.replace('.png','.mp4').
+    //   replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
+    // }
 
   },
   mounted(){
+  this.src = this.source;
     // this.cl = cloudinary;
     // var wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
     // axios
