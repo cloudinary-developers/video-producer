@@ -50,10 +50,15 @@ export default {
   methods: {
     previewItem(item){
       console.log(item);
+      this.$emit('preview-click', this.createPreviewVideo(item));
     },
-    createThumbnailImage(image){
-      return image.secure_url.replace('.mp4','.png').
+    createThumbnailImage(asset){
+      return asset.secure_url.replace('.mp4','.png').
       replace('.mov','.png').replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
+    },
+    createPreviewVideo(asset){
+      return asset.secure_url.replace('.png','.mp4').
+      replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
     }
     
   },

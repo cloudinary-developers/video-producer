@@ -11,7 +11,7 @@
        <FileUploader></FileUploader>
           </template>
           <template slot="window-content">
-            <AssetList></AssetList>
+            <AssetList v-on:preview-click="trimVideo($event)"></AssetList>
           </template>
         </Window>
       </v-flex>
@@ -22,7 +22,7 @@
                   <v-toolbar-title class="white--text"> Now Playing </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <VideoPlayer></VideoPlayer>
+           <VideoPlayer id="videoPlayer" :source="source"></VideoPlayer>
           </template>
         </Window>
       </v-flex>
@@ -56,6 +56,29 @@ export default {
     FileUploader,
     AssetList,
     VideoPlayer
+  }, 
+  watch: {
+    // whenever question changes, this function will run
+    source: function (newData, oldData) {
+      this.videoSource = newData;
+    }
+  },
+  data() {
+    return {
+      videoSource: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4",
+      source: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4"
+    };
+  },
+  methods: {
+    trimVideo : function(url){
+     
+
+      this.source = url.replace('.mov','.mp4');
+      console.log(this.source);
+      
+      document.querySelector('#videoPlayer').src = this.source
+      //alert(this.source);
+    }
   }
 };
 </script>
