@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="breadcrumbs">
       <v-breadcrumbs divider="/">
         <v-breadcrumbs-item
           v-for="item in items"
@@ -17,16 +17,12 @@ export default {
   data: () => ({
     items: [
       {
-        text: 'Dashboard',
+        text: 'Projects',
         disabled: false
       },
       {
-        text: 'Link 1',
+        text: '8Eight',
         disabled: false
-      },
-      {
-        text: 'Link 2',
-        disabled: true
       }
     ]
   })
@@ -35,5 +31,10 @@ export default {
 </script>
 
 <style>
+
+.breadcrumbs {
+ /* display: inline;
+  float: right;*/
+}
 
 </style>
