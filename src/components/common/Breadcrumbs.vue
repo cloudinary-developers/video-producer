@@ -25,7 +25,12 @@ export default {
         disabled: false
       }
     ]
-  })
+  }),
+  mounted(){
+    
+    var wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
+
+  }
 
 };
 </script>

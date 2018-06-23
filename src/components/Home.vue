@@ -11,7 +11,7 @@
        <FileUploader></FileUploader>
           </template>
           <template slot="window-content">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam placeat amet rerum, est aut animi dicta iste vero cumque iusto repellat quas nobis? Alias delectus quo enim sint, explicabo at.
+            <AssetList></AssetList>
           </template>
         </Window>
       </v-flex>
@@ -47,11 +47,13 @@
 import Window from './common/Window';
 import Breadcrumbs from './common/Breadcrumbs';
 import FileUploader from './common/FileUploader';
+import AssetList from './common/AssetList';
 export default {
   components: {
     Window,
     Breadcrumbs,
-    FileUploader
+    FileUploader,
+    AssetList
   }
 };
 </script>
