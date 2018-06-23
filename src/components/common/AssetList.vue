@@ -3,13 +3,14 @@
 <!-- <p>  {{ resources }}</p> -->
     <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex xs6 v-for="item in resources" :key="item.public_id">
+      <v-flex xs2 v-for="item in resources" :key="item.public_id" draggable>
         <a @click="previewItem(item)">
-        <v-card>
-          <v-card-media
+          <img :src="createThumbnailImage(item)" :alt="item.public_id">
+        <!-- <v-card draggable>
+          <v-card-media 
             :src="createThumbnailImage(item)"
             height="100px">
-            <v-container fill-height fluid>
+            <v-container fill-height>
               <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
               <p>{{item.secure_url}}</p>
@@ -20,7 +21,7 @@
           <v-card-actions>
             <span class="headline white--text" v-text="item.resource_type"></span>
           </v-card-actions>
-        </v-card>
+        </v-card> -->
       </a>
       </v-flex>
     </v-layout>
@@ -52,7 +53,7 @@ export default {
     },
     createThumbnailImage(image){
       return image.secure_url.replace('.mp4','.jpg').
-      replace('.mov','.jpg').replace('upload/','upload/w_50/');
+      replace('.mov','.jpg').replace('upload/','upload/w_100,h_100,c_fill,ar_2:3/');
     }
     
   },
