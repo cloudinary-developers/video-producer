@@ -52,8 +52,8 @@ export default {
       console.log(item);
     },
     createThumbnailImage(image){
-      return image.secure_url.replace('.mp4','.jpg').
-      replace('.mov','.jpg').replace('upload/','upload/w_100,h_100,c_fill,ar_2:3/');
+      return image.secure_url.replace('.mp4','.png').
+      replace('.mov','.png').replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
     }
     
   },
