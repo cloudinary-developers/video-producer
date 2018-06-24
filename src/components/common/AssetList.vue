@@ -120,7 +120,9 @@ export default {
 <style>
  
 .imageGrid{
-  overflow: scroll;
+  overflow-y: auto;
   max-height: 400px;
+  vertical-align: baseline;
+
 }
 </style>

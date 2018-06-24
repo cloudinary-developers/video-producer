@@ -37,7 +37,8 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-            <Storyboard dropable></Storyboard>
+            <Storyboard ref="trackA" droppable></Storyboard>
+            <Storyboard ref="trackb" droppable></Storyboard>
           </template>
         </Window>
       </v-flex>
