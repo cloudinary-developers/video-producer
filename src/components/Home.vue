@@ -6,8 +6,11 @@
           <template slot="window-header">
       <v-icon>photo_library</v-icon>
       <v-toolbar-title class="white--text"> Media Bin </v-toolbar-title>
+      <v-btn  color="warning" @click="refreshAssets">
+      <v-icon>refresh</v-icon></v-btn>
       <v-spacer></v-spacer>
       <Breadcrumbs></Breadcrumbs>
+  
        <FileUploader v-on:asset-upload="refreshList($event)"></FileUploader>
           </template>
           <template slot="window-content">
@@ -64,21 +67,17 @@ export default {
   },
   methods: {
 
-    refreshList: function(assets){
-      debugger
-      console.log(assets);
-      vm.$refs.assetlist.fetchAssets(); //assuming my component has a doSomething() method
+    refreshAssets: function (){      
+      this.$refs.assetlist.fetchAssets(); 
     },
-
-
-    trimVideo : function(video){
-     
-
+    refreshList: function(assets){
+      console.log(assets);
+      // todo add toast to show what was added.
+      this.$refs.assetlist.fetchAssets(); 
+    },
+    trimVideo : function(video){     
       this.source = video.url.replace('.mov','.mp4');
-      console.log(this.source);
-      
-     // document.querySelector('#videoPlayer').src = this.source
-      //alert(this.source);
+      console.log(this.source);      
     }
   }
 };
