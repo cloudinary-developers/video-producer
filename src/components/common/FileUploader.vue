@@ -22,29 +22,24 @@ export default {
 
   methods: {
 
-    videoUploaded: function(result){
-     // this.items.push(result);
-      this.$emit('asset-upload', result);
-    },
-
-    onUploaded: function(error,result){
+    callback : function (error,result){
       console.log(error, result);
-      this.videoUploaded(result);
       
+      this.$emit('asset-upload', result); 
+
     },
 
     showUploadWidget: function(){
-      cloudinary.openUploadWidget({ 
-                    cloud_name: 'de-demo',
-                    folder: 'Projects/Cloudinary/8Eight',
-                    upload_preset: 'video-producer'}, this.onUploaded);
+
+      
+      cloudinary.openUploadWidget( { cloud_name:'de-demo',
+                    folder: 'Projects/Cloudinary/8Eight', function (error,result){
+      this.$emit('asset-upload', result);}});
+
+      }
     }
+}
 
-    
-  }
-
-
-};
 </script>
 
 <style>

@@ -21,13 +21,17 @@ export default {
         disabled: false
       },
       {
+        text: 'Cloudinary',
+        disabled: false
+      },
+      {
         text: '8Eight',
         disabled: false
       }
     ]
   }),
   mounted(){
-    
+
     var wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
 
   }

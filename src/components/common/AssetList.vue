@@ -78,7 +78,7 @@ export default {
     },
     createThumbnailImage(asset){
       let url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
-      replace('.mov','.png').replace('upload/','upload/w_160,h_90,c_fill,ar_16:9,r_8/');
+      replace('.mov','.png').replace('upload/','upload/w_160,h_90,c_thumb,ar_16:9,r_8/');
       return url;
     },
     createVideoFromImage(asset){
