@@ -8,7 +8,6 @@
       <v-toolbar-title class="white--text"> Media Bin </v-toolbar-title>
       <v-spacer></v-spacer>
       <Breadcrumbs></Breadcrumbs>
-  
        <FileUploader v-on:asset-upload="refreshList($event)"></FileUploader>
        <v-btn dark small fab color="primary" @click="refreshAssets">
       <v-icon>refresh</v-icon></v-btn>
@@ -38,7 +37,7 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam placeat amet rerum, est aut animi dicta iste vero cumque iusto repellat quas nobis? Alias delectus quo enim sint, explicabo at.
+            <Storyboard dropable></Storyboard>
           </template>
         </Window>
       </v-flex>
@@ -52,13 +51,15 @@ import Breadcrumbs from './common/Breadcrumbs';
 import FileUploader from './common/FileUploader';
 import AssetList from './common/AssetList';
 import VideoPlayer from './common/VideoPlayer';
+import Storyboard from './common/Storyboard';
 export default {
   components: {
     Window,
     Breadcrumbs,
     FileUploader,
     AssetList,
-    VideoPlayer
+    VideoPlayer,
+    Storyboard
   }, 
   data() {
     return {

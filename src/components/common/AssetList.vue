@@ -1,12 +1,12 @@
 <template>
   <div class="assetlist-container">
     <v-container fluid grid-list-md>
-      <v-layout fluid row wrap>
+      <v-layout fluid row>
       <div class="caption"><span :text="asset_list">{{asset_list}}</span></div>
       </v-layout>
-    <v-layout row wrap>
+    <v-layout row wrap class="imageGrid">
   
-      <v-flex xs2 v-for="item in resources" :key="item.public_id" draggable>
+      <v-flex xs3 v-for="item in resources" :key="item.public_id" draggable>
         <a @click="previewItem(item)">
           <img :src="createThumbnailImage(item)" :alt="item.public_id" :title="item.public_id">
         <!-- <v-card draggable>
@@ -78,7 +78,7 @@ export default {
     },
     createThumbnailImage(asset){
       let url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
-      replace('.mov','.png').replace('upload/','upload/w_100,c_fill,ar_16:9,r_8/');
+      replace('.mov','.png').replace('upload/','upload/w_160,h_90,c_fill,ar_16:9,r_8/');
       return url;
     },
     createVideoFromImage(asset){
@@ -119,5 +119,8 @@ export default {
    
 <style>
  
-
+.imageGrid{
+  overflow: scroll;
+  max-height: 400px;
+}
 </style>
