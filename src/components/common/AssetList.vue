@@ -1,6 +1,5 @@
 <template>
   <div class="assetlist-container">
-<!-- <p>  {{ resources }}</p> -->
     <v-container fluid grid-list-md>
       <v-layout fluid row wrap>
       <div class="caption"><span :text="asset_list">{{asset_list}}</span></div>
@@ -79,7 +78,7 @@ export default {
     },
     createThumbnailImage(asset){
       let url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
-      replace('.mov','.png').replace('upload/','upload/w_100,h_100,c_fill,ar_2:3,r_14/');
+      replace('.mov','.png').replace('upload/','upload/w_100,c_fill,ar_16:9,r_8/');
       return url;
     },
     createVideoFromImage(asset){

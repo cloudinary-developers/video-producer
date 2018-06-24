@@ -1,7 +1,7 @@
 <template>
   <div>
-  <v-btn  color="primary" @click="showUploadWidget">
-      <v-icon>backup</v-icon> &nbsp; Upload Assets
+  <v-btn dark small fab color="primary" @click="showUploadWidget">
+      <v-icon>backup</v-icon>
   </v-btn>
  </div>   
 </template>
@@ -24,7 +24,7 @@ export default {
 
     videoUploaded: function(result){
      // this.items.push(result);
-      this.$emit('upload-results', result);
+      this.$emit('asset-upload', result);
     },
 
     onUploaded: function(error,result){

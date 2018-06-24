@@ -6,12 +6,12 @@
           <template slot="window-header">
       <v-icon>photo_library</v-icon>
       <v-toolbar-title class="white--text"> Media Bin </v-toolbar-title>
-      <v-btn  color="warning" @click="refreshAssets">
-      <v-icon>refresh</v-icon></v-btn>
       <v-spacer></v-spacer>
       <Breadcrumbs></Breadcrumbs>
   
        <FileUploader v-on:asset-upload="refreshList($event)"></FileUploader>
+       <v-btn dark small fab color="primary" @click="refreshAssets">
+      <v-icon>refresh</v-icon></v-btn>
           </template>
           <template slot="window-content">
             <AssetList ref="assetlist" v-on:preview-click="trimVideo($event)"></AssetList>
