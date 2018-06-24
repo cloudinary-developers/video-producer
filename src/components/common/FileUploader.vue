@@ -23,7 +23,8 @@ export default {
   methods: {
 
     videoUploaded: function(result){
-      this.items.push(result);
+     // this.items.push(result);
+      this.$emit('upload-results', result);
     },
 
     onUploaded: function(error,result){

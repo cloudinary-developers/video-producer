@@ -8,10 +8,10 @@
       <v-toolbar-title class="white--text"> Media Bin </v-toolbar-title>
       <v-spacer></v-spacer>
       <Breadcrumbs></Breadcrumbs>
-       <FileUploader></FileUploader>
+       <FileUploader v-on:asset-upload="refreshList($event)"></FileUploader>
           </template>
           <template slot="window-content">
-            <AssetList v-on:preview-click="trimVideo($event)"></AssetList>
+            <AssetList ref="assetlist" v-on:preview-click="trimVideo($event)"></AssetList>
           </template>
         </Window>
       </v-flex>
@@ -57,22 +57,24 @@ export default {
     AssetList,
     VideoPlayer
   }, 
-  // watch: {
-  //   // whenever question changes, this function will run
-  //   source: function (newData, oldData) {
-  //     this.videoSource = newData;
-  //   }
-  // },
   data() {
     return {
       source: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4"
     };
   },
   methods: {
-    trimVideo : function(url){
+
+    refreshList: function(assets){
+      debugger
+      console.log(assets);
+      vm.$refs.assetlist.fetchAssets(); //assuming my component has a doSomething() method
+    },
+
+
+    trimVideo : function(video){
      
 
-      this.source = url.replace('.mov','.mp4');
+      this.source = video.url.replace('.mov','.mp4');
       console.log(this.source);
       
      // document.querySelector('#videoPlayer').src = this.source

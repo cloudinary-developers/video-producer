@@ -12,7 +12,7 @@
 
 <style>
 .window {
-  height: 55vh;
+  height: 60vh;
   border-right: 1px solid #323a45;
 }
 .window__header {
