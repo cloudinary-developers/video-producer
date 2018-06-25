@@ -88,16 +88,13 @@ export default {
     generateURL: function() {
       this.currentClip.trim_info.start_offset = this.startoffset;
       this.currentClip.trim_info.end_offset = this.endoffset;
-      this.clips.push(this.currentClip);
-
+    
       const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
       const public_id = this.currentClip.asset_info.public_id;
       const options = {
         duration: this.duration,
         endOffset: this.endoffset,
         startOffset: this.startoffset,
-        width: 600,
-        crop: 'scale',
         resource_type: 'video',
         format: 'mp4'
       };
@@ -112,8 +109,8 @@ export default {
       this.currentClip.transformations.push(options);
       this.currentClip.transformationVideoURL = url;
 
-      
-      
+      this.clips.push(this.currentClip);
+      console.log(this.clips);
     },
   	previewClip: function(event) {
       // const transformation = `w_600,du_${Math.floor(this.duration)},so_${parseFloat(this.currentClip.trim_info.start_offset).toFixed(2)},eo_${parseFloat(this.endoffset).toFixed(2)}`;
