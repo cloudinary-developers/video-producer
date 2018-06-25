@@ -7,6 +7,9 @@
       <v-btn dark small fab color="primary" @click="generateURL">
         <v-icon>add_to_queue</v-icon>
       </v-btn>
+      <v-btn dark small fab color="success" @click="openClip">
+        <v-icon>open_in_new</v-icon>
+      </v-btn>
 	</v-layout>
 		<v-container align-center justify-space-around>
 	  		<video ref="videoplayer" v-on:timeupdate="updateDisplay($event)" controls="yes" name="media" id="videoPlayerPreview">
@@ -62,9 +65,9 @@ export default {
     startoffset: 2
     */
   	trimStart: function(event) {
-      this.duration = this.duration - this.playheadPosition;
-      this.startoffset = this.playheadPosition;
-      this.endoffset = this.duration + this.playheadPosition;
+      this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
+      this.startoffset = parseFloat(this.playheadPosition).toFixed(2);
+      this.endoffset = parseFloat(this.duration + this.playheadPosition).toFixed(2);
     },
     /*
     10 sec
@@ -72,10 +75,11 @@ export default {
     duration: 8
     endoffset: 2
     */
+   
   	trimEnd: function(event) {
       if (this.startoffset === 0) {
-        this.duration = this.duration - this.playheadPosition;
-        this.endoffset = this.duration;
+        // this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
+        this.endoffset = parseFloat(this.playheadPosition).toFixed(2);
         /*
         10
         start: 2
@@ -84,8 +88,9 @@ export default {
         endoffset: 2
         */
       } else {
-        this.duration = this.duration - this.playheadPosition - this.startoffset;
-        this.endoffset = this.playheadPosition;
+        // this.duration = parseFloat(this.duration - this.playheadPosition - this.startoffset).toFixed(2);
+        this.endoffset = parseFloat(this.playheadPosition).toFixed(2);
+        this.duration = parseFloat(this.endoffset - this.startoffset).toFixed(2);
       }
     },
     generateURL: function() {
@@ -95,7 +100,7 @@ export default {
       const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
       const public_id = this.currentClip.asset_info.public_id;
       const options = {
-        duration: this.duration,
+        // duration: this.duration,
         endOffset: this.endoffset,
         startOffset: this.startoffset,
         resource_type: 'video',
@@ -119,7 +124,13 @@ export default {
       const player = this.$refs.videoplayer;
       player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
       player.play();
-  	}
+    },
+    openClip: function() {
+      this.generateURL();
+      const url = this.currentClip.transformationVideoURL;
+      console.log(url);
+      window.open(url, '_blank');
+    }
   },
   
   watch: {
