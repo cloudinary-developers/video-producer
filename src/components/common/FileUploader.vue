@@ -16,16 +16,14 @@ export default {
     items: []
   }),
   mounted () {
-   // this.folder = ;
-     // this.videoUploaded();
-     // this.upload();
+   //this.folder = 'Projects/Cloudinary/8Eight';
   },
 
   methods: {
-    onUploaded: (error,result) => {
+    onUploaded: function(error,result) {
       this.$emit('asset-upload', result);
     },
-    showUploadWidget: () => {
+    showUploadWidget: function(){
       cloudinary.openUploadWidget({ 
         cloud_name: 'de-demo',
         folder: this.folder,

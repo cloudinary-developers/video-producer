@@ -1,9 +1,12 @@
 <template>
 <div class="video-container">
 	<v-layout align-center justify-space-around>
-  		<v-btn dark small fab color="primary" @click="generateURL">
-	      <v-icon>movie_creation</v-icon>
+  		<v-btn dark small fab color="primary" @click="previewClip">
+	      <v-icon>view_array</v-icon>
 	  	</v-btn>
+      <v-btn dark small fab color="primary" @click="generateURL">
+        <v-icon>add_to_queue</v-icon>
+      </v-btn>
 	</v-layout>
 		<v-container align-center justify-space-around>
 	  		<video ref="videoplayer" v-on:timeupdate="updateDisplay($event)" controls="yes" name="media" id="videoPlayerPreview">
@@ -100,10 +103,10 @@ export default {
       };
 
       const url = cl.url(public_id, options);
-      const player = this.$refs.videoplayer;
-      // player.src = url;
-      player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
-      player.play();
+      // const player = this.$refs.videoplayer;
+      // // player.src = url;
+      // player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
+      // player.play();
 
       this.currentClip.transformations = [];
       this.currentClip.transformations.push(options);
@@ -113,12 +116,9 @@ export default {
       console.log(this.clips);
     },
   	previewClip: function(event) {
-      // const transformation = `w_600,du_${Math.floor(this.duration)},so_${parseFloat(this.currentClip.trim_info.start_offset).toFixed(2)},eo_${parseFloat(this.endoffset).toFixed(2)}`;
-      // const url = `https://res.cloudinary.com/de-demo/video/upload/${transformation}/${this.currentClip.asset_info.public_id}.mp4`;
-      // console.log(url);
-      // player.src = url; 
-      // player.play();
-      // console.log(this.clips);
+      const player = this.$refs.videoplayer;
+      player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
+      player.play();
   	}
   },
   
