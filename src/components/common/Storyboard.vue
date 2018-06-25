@@ -1,7 +1,7 @@
 <template>
   <div class="track">
     <v-btn dark small fab color="primary" @click="generateURL">
-      <v-icon>play</v-icon>Play</v-btn>
+      <v-icon>play</v-icon></v-btn>
     <v-layout align-center justify-space-around>
       <v-layout row wrap class="trackGrid">
   
@@ -60,27 +60,57 @@ export default {
        console.log(clip0_option);
 
       
+  let t = [];
+  let transArr =  this.clips.forEach((clip,i) => { 
 
-      
-
-       let transArr =  this.clips.map(function(clip){ 
-
-               console.log(clip);
-
+        if(i === 0){
+            return;
+        }
+      console.log(clip)
       const layer = clip.asset_info.public_id.replace(/\//g,":");
       const tranform = { width:400, overlay:`video:${layer}`, 
                 startOffset:clip.trim_info.start_offset,  
                 endOffset:clip.trim_info.end_offset};
-            return tranform;
+
+                  if(i === this.clips.length -1){
+                    tranform.flags = "splice"
+                  }
+
+
+            t.push(tranform) ;
       });
+
+
+      
+
+      //  let transArr =  this.clips.map((clip,i) => { 
+
+      //   if(i === 0){
+      //       return;
+      //   }
+      // console.log(clip)
+      // const layer = clip.asset_info.public_id.replace(/\//g,":");
+      // const tranform = { width:400, overlay:`video:${layer}`, 
+      //           startOffset:clip.trim_info.start_offset,  
+      //           endOffset:clip.trim_info.end_offset};
+
+      //             if(i === this.clips.length -1){
+      //               tranform.flags = "splice"
+      //             }
+
+
+      //       return tranform;
+      // });
 
        // transArr = transArr.reverse();
        //  transArr.shift();
        //  transArr.unshift({width:'400'});
 
-        clip0_option.transformation = transArr;
 
-       
+      clip0_option.transformation = t;
+      clip0_option.width = 400;
+      clip0_option.crop = 'fill';
+        
      //  clip0_option.transformation.flags = "splice";
 
        const url = cl.url(clip0_public_id, clip0_option);
