@@ -6,8 +6,7 @@
 	  	</v-btn>
 	</v-layout>
 		<v-container align-center justify-space-around>
-	  		<video  ref="videoplayer"  v-on:timeupdate="updateDisplay($event)"  controls="yes" autoplay="no" name="media" id="videoPlayerPreview">
-  				<source :src="src" type="video/mp4">
+	  		<video ref="videoplayer" v-on:timeupdate="updateDisplay($event)" controls="yes" name="media" id="videoPlayerPreview">
   			</video>
 	  	</v-container>
 
@@ -18,7 +17,7 @@
 	  </v-btn>
 		<v-spacer></v-spacer>
   	<div class="caption">
-  		<span v-text="currenttime"></span>  of <span v-text="duration"></span>
+  		<span v-text="playheadPosition"></span> of <span v-text="duration"></span>
  	</div>
  	<v-spacer></v-spacer>
 	  
@@ -34,53 +33,86 @@
 
 <script>
 export default {
-  props: [ 'source','timecode','value','asset'],
+  props: ['source', 'clip'],
   name: 'video-player',
-  data: () => ({
-  	currenttime: 0,
-  	duration: 0,
-  	startoffset: 0,
-  	endoffset: 0,
-    video: {}, 
-    resources: [],
-    src: '',
-    player: {},
-  }),
-  methods: {
+  data: function() {
+    return {
+      playheadPosition: 0,
+      duration: 0,
+      startoffset: 0,
+      endoffset: 0,
+      src: null,
+      clips: [],
+      currentClip: this.clip || {}
+    }
+  },
 
+  methods: {
   	updateDisplay: function(event) {
-  		this.currenttime = event.target.currentTime;
-  		this.duration = event.target.duration;
-  	},
+  		this.playheadPosition = event.target.currentTime;
+      this.duration = event.target.duration;
+    },
+    /*
+    10 sec
+    @2
+    duration: 8
+    startoffset: 2
+    */
   	trimStart: function(event) {
-  		this.startoffset = this.currenttime;
-  	},
+      this.duration = this.duration - this.playheadPosition;
+      this.startoffset = this.playheadPosition;
+      this.endoffset = this.duration + this.playheadPosition;
+      this.currentClip.trim_info.start_offset = this.startoffset;
+    },
+    /*
+    10 sec
+    @2
+    duration: 8
+    endoffset: 2
+    */
   	trimEnd: function(event) {
-  		this.endoffset = this.currenttime;
+      if (this.startoffset === 0) {
+        this.duration = this.duration - this.playheadPosition;
+        this.endoffset = this.duration;
+        this.currentClip.trim_info.end_offset = this.endoffset;
+        /*
+        10
+        start: 2
+        end: 2
+        duration: 6
+        endoffset: 2
+        */
+      } else {
+        this.duration = this.duration - this.playheadPosition - this.startoffset;
+        this.endoffset = this.playheadPosition;
+        this.currentClip.trim_info.end_offset = this.endoffset;
+      }
   	},
   	previewClip: function(event) {
-  		const player = document.querySelector('#videoPlayerPreview');
-  		const template = `https://res.cloudinary.com/de-demo/video/upload/w_600,so_${this.startoffset},e0_${this.endoffset}/v1528907842/${asset.public_id}`
-  		console.log(template);
+      // this.clips.push(this.currentClip);
+      const player = this.$refs.videoplayer;
+      const transformation = `w_600,du_${Math.floor(this.duration)},so_${parseFloat(this.currentClip.trim_info.start_offset).toFixed(2)},eo_${parseFloat(this.endoffset).toFixed(2)}`;
+      const url = `https://res.cloudinary.com/de-demo/video/upload/${transformation}/${this.currentClip.asset_info.public_id}.mp4`;
+      console.log(url);
+      player.src = url;
+      player.play();
   	}
   },
   
   watch: {
+    source: function(newUrl, oldUrl) {
+      console.log('Watching:', newUrl, oldUrl);
+      this.$refs.videoplayer.src = newUrl;
 
-    // whenever question changes, this function will run
-    source: (newData, oldData) => {
-    	console.log('Watching:', newData,oldData)
-    	this.src = newData;
-    	const player = document.querySelector('#videoPlayerPreview');
-    	player.src = newData;
+    },
+    clip: function(newClip, oldClip) {
+      this.currentClip = newClip;
     }
   },
 
   mounted() {
-    this.seektime = 0
+    this.seektime = 0;
     this.duration = 0;
-    this.player = document.querySelector('#videoPlayerPreview');
-    this.src = this.source;
   }
 
 };

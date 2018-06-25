@@ -8,26 +8,10 @@
 
     <v-layout row wrap class="imageGrid">
   
-      <v-flex xs3 v-for="item in resources" :key="item.public_id" draggable>
-        <a @click="previewItem(item)">
-          <img :src="createThumbnailImage(item)" :alt="item.public_id" :title="item.public_id">
-        <!-- <v-card draggable>
-          <v-card-media 
-            :src="createThumbnailImage(item)"
-            height="100px">
-            <v-container fill-height>
-              <v-layout fill-height>
-                <v-flex xs12 align-end flexbox>
-              <p>{{item.secure_url}}</p>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-media>
-          <v-card-actions>
-            <span class="headline white--text" v-text="item.resource_type"></span>
-          </v-card-actions>
-        </v-card> -->
-      </a>
+      <v-flex xs3 v-for="clip in resources" :key="clip.asset_info.public_id" draggable>
+        <a @click="previewAsset(clip)">
+          <img :src="createThumbnailImage(clip.asset_info.secure_url)" :alt="clip.asset_info.public_id" :title="clip.asset_info.public_id">
+        </a>
       </v-flex>
       </v-layout>
     
@@ -60,6 +44,17 @@ export default {
     }
   },
   methods: {
+    generateUUID() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
+    previewAsset(clip) {
+      this.$emit('preview-click', clip);
+    },
     fetchAssets() {
       const wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
       axios
@@ -68,7 +63,43 @@ export default {
         console.log(response.data)
         this.resource_type = response.data.aggregations.resource_type;
         console.log(`images: ${this.resource_type.image} videos: ${this.resource_type.video}`);
-        this.resources = response.data.resources;
+        /*
+        clips = [{
+          asset_info: {
+            resources[0]
+          },
+          clip_id: uuid(),
+          clip_type: 'video',
+          thumbnail: createThumbnail(secure_url),
+          transformation: [{
+            trans1, trans2
+          }],
+          trim_info: {
+            start_offset: 1,
+            end_offset: 5,
+            duration: 3
+          },
+          meta: {
+            transcription_url: '',
+            tags: ''
+          }
+        }];
+        */
+        const clips = response.data.resources.map(asset => {
+          const clip = {
+            clip_id: this.generateUUID(),
+            video_url: this.createPreviewVideo(asset),
+            asset_info: asset,
+            trim_info: {
+              start_offset: 0,
+              end_offset: 0,
+              duration: asset.resource_type === 'video' ? asset.duration : null
+            }  
+          }
+          return clip;
+        });
+        console.log(clips);
+        this.resources = clips;
       })
     },
 
@@ -79,8 +110,8 @@ export default {
       console.log(asset);
       this.$emit('preview-click', this.createPreviewVideo(asset));
     },
-    createThumbnailImage(asset) {
-      const url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
+    createThumbnailImage(secure_url) {
+      const url =  secure_url.replace('.mp4','.png').replace('.jpg','.png').
       replace('.mov','.png').replace('upload/','upload/w_160,h_90,c_thumb,ar_16:9,r_8/');
       return url;
     },
@@ -93,24 +124,18 @@ export default {
       return url;
     },
 
+    // helper to create URL
     createPreviewVideo(asset) {
-      console.log('Asset: ' , asset);
       if (asset.resource_type === 'image') {
-        const url = this.createVideoFromImage(asset);
-        const video = { url:url, starttime:0 , duration: 5 };
-          console.log('createVideoFromImage',video);
-          return video;
-      }else if (asset.resource_type === 'video') {
-       const duration = Math.floor(asset.duration);
+        return this.createVideoFromImage(asset);
+      } else if (asset.resource_type === 'video') {
        const url = asset.secure_url
-        .replace('.png','.mp4').replace('.jpg','.mp4')
-        .replace('upload/',`upload/w_600,so_0,du_${duration}/`);
-        const video = { url, starttime:0 , duration };
-        console.log(video);
-        return video;
+        .replace('.png',' .mp4').replace('.jpg', '.mp4')
+        .replace('upload/', 'upload/w_600/');
+        return url;
       }
     }
-    
+
   },
   mounted() {
     this.cl = cloudinary;

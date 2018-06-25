@@ -24,7 +24,7 @@
                   <v-toolbar-title class="white--text"> Now Playing </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <VideoPlayer id="videoPlayer" :source="source" :asset="asset"></VideoPlayer>
+           <VideoPlayer id="videoPlayer" :source="source" :clip="clip"></VideoPlayer>
           </template>
         </Window>
       </v-flex>
@@ -64,13 +64,13 @@ export default {
   }, 
   data() {
     return {
-      asset: {},
+      clip: {},
       source: 'https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4'
     };
   },
   methods: {
 
-    refreshAssets: () => {      
+    refreshAssets: function() {
       this.$refs.assetlist.fetchAssets(); 
     },
     refreshList: function(assets){
@@ -78,11 +78,11 @@ export default {
       // todo add toast to show what was added.
       this.$refs.assetlist.fetchAssets(); 
     },
-    trimVideo : video => {     
-      this.source = video.url.replace('.mov','.mp4');
-      this.asset = video;
+    trimVideo: function(clip) {
+      console.log(clip);
+      this.source = clip.video_url;
       console.log(this.source);
-      console.log(this.asset);
+      this.clip = clip;
     }
   }
 };
