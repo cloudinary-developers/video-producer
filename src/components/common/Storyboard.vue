@@ -1,6 +1,8 @@
 <template>
   <div class="track">
-    Drop Assets here
+    <v-layout align-center justify-space-around>
+      Drop Assets here
+    </v-layout>
   </div>
   
 </template>

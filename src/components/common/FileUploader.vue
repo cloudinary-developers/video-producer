@@ -10,36 +10,30 @@
   //Projects/Cloudinary/8Eight
 
 export default {
+  props:['folder'],
   name: 'fileuploader',
   data: () => ({
     items: []
   }),
-
   mounted (){
+   // this.folder = ;
      // this.videoUploaded();
      // this.upload();
   },
 
   methods: {
-
-    callback : function (error,result){
-      console.log(error, result);
-      
-      this.$emit('asset-upload', result); 
-
+    onUploaded: function(error,result){
+      this.$emit('asset-upload', result);
     },
-
     showUploadWidget: function(){
-
-      
-      cloudinary.openUploadWidget( { cloud_name:'de-demo',
-                    folder: 'Projects/Cloudinary/8Eight', function (error,result){
-      this.$emit('asset-upload', result);}});
-
-      }
+      cloudinary.openUploadWidget({ 
+                    cloud_name: 'de-demo',
+                    folder: this.folder,
+                    upload_preset: 'video-producer'}, this.onUploaded);
     }
-}
+  }
 
+};
 </script>
 
 <style>

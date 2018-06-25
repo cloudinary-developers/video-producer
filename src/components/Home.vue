@@ -8,7 +8,7 @@
       <v-toolbar-title class="white--text"> Media Bin </v-toolbar-title>
       <v-spacer></v-spacer>
       <Breadcrumbs></Breadcrumbs>
-       <FileUploader v-on:asset-upload="refreshList($event)"></FileUploader>
+       <FileUploader folder="Projects/Cloudinary/8Eight" v-on:asset-upload="refreshList($event)"></FileUploader>
        <v-btn dark small fab color="primary" @click="refreshAssets">
       <v-icon>refresh</v-icon></v-btn>
           </template>
@@ -24,7 +24,7 @@
                   <v-toolbar-title class="white--text"> Now Playing </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <VideoPlayer id="videoPlayer" :source="source"></VideoPlayer>
+           <VideoPlayer id="videoPlayer" :source="source" :asset="asset"></VideoPlayer>
           </template>
         </Window>
       </v-flex>
@@ -37,8 +37,7 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-            <Storyboard ref="trackA" droppable></Storyboard>
-            <Storyboard ref="trackb" droppable></Storyboard>
+           <p>Stuff here</p>
           </template>
         </Window>
       </v-flex>
@@ -53,6 +52,7 @@ import FileUploader from './common/FileUploader';
 import AssetList from './common/AssetList';
 import VideoPlayer from './common/VideoPlayer';
 import Storyboard from './common/Storyboard';
+
 export default {
   components: {
     Window,
@@ -64,6 +64,7 @@ export default {
   }, 
   data() {
     return {
+      asset: {},
       source: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4"
     };
   },
@@ -79,6 +80,8 @@ export default {
     },
     trimVideo : function(video){     
       this.source = video.url.replace('.mov','.mp4');
+      this.asset = video;
+      alert(this.asset);
       console.log(this.source);      
     }
   }
@@ -86,6 +89,7 @@ export default {
 </script>
 
 <style>
+
  
 </style>
 

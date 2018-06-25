@@ -1,9 +1,11 @@
 <template>
   <div class="assetlist-container">
+
     <v-container fluid grid-list-md>
-      <v-layout fluid row>
+      
       <div class="caption"><span :text="asset_list">{{asset_list}}</span></div>
-      </v-layout>
+      
+
     <v-layout row wrap class="imageGrid">
   
       <v-flex xs3 v-for="item in resources" :key="item.public_id" draggable>
@@ -27,7 +29,8 @@
         </v-card> -->
       </a>
       </v-flex>
-    </v-layout>
+      </v-layout>
+    
   </v-container>
    
     
