@@ -114,9 +114,8 @@ export default {
       this.currentClip.transformations = [];
       this.currentClip.transformations.push(options);
       this.currentClip.transformationVideoURL = url;
-
-      this.clips.push(this.currentClip);
-      console.log(this.clips);
+      this.addToTrack(this.currentClip);
+      
     },
   	previewClip: function(event) {
       const player = this.$refs.videoplayer;
@@ -128,6 +127,12 @@ export default {
       const url = this.currentClip.transformationVideoURL;
       console.log(url);
       window.open(url, '_blank');
+    },
+    addToTrack(clip) {
+      // this.clips.push(this.currentClip);
+      console.log('ADD TO TRACK', clip);
+      this.$emit('add-track', clip);
+      
     }
   },
   

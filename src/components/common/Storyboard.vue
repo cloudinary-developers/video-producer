@@ -10,8 +10,9 @@
 <script>
 export default {
   name: 'storyboard',
+  props: ['trackClip'],
   data: () => ({
-    tracks: []
+    clips: []
   }),
   mounted() {
     

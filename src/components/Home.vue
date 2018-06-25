@@ -37,7 +37,7 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <p>Stuff here</p>
+           <Storyboard ref="storyboard" v-on:add-track="addToStoryBoard($event)" :trackClip="trackClip"></Storyboard>
           </template>
         </Window>
       </v-flex>
@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       clip: {},
+      trackClip: {},
       source: 'https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4'
     };
   },
@@ -83,6 +84,10 @@ export default {
       this.source = clip.video_url;
       console.log(this.source);
       this.clip = clip;
+    },
+    addToStoryBoard: function(clip) {
+      console.log('ADD TO STORYBOARD:', clip);
+      this.trackClip = clip;
     }
   }
 };
