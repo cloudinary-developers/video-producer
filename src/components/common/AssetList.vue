@@ -52,16 +52,16 @@ export default {
       this.asset_list = `Images: ${newData.image} Videos: ${newData.video}`;
     },
 
-    source: function (newData, oldData) {
+    source: (newData, oldData) => {
       console.log('Watching:', newData,oldData)
       this.src = newData;
-      let player = document.querySelector('#videoPlayerPreview');
+      const player = document.querySelector('#videoPlayerPreview');
       player.src = newData;
     }
   },
   methods: {
-    fetchAssets(){
-      var wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
+    fetchAssets() {
+      const wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
       axios
       .get(wsURL)
       .then(response => {
@@ -72,46 +72,47 @@ export default {
       })
     },
 
-    displayResourceTypes(){
+    displayResourceTypes() {
       return `Images: ${this.resource_type.image} Videos: ${this.resource_type.video}`;
     },
     previewItem(asset){
       console.log(asset);
       this.$emit('preview-click', this.createPreviewVideo(asset));
     },
-    createThumbnailImage(asset){
-      let url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
+    createThumbnailImage(asset) {
+      const url =  asset.secure_url.replace('.mp4','.png').replace('.jpg','.png').
       replace('.mov','.png').replace('upload/','upload/w_160,h_90,c_thumb,ar_16:9,r_8/');
       return url;
     },
-    createVideoFromImage(asset){
+    createVideoFromImage(asset) {
       console.log('createVideoFromImage')
-      let sanitized = asset.public_id.replace(/\//g,":");
-      let layer = `l_${sanitized}`;
+      const sanitized = asset.public_id.replace(/\//g,":");
+      const layer = `l_${sanitized}`;
       //l_Projects:Cloudinary:8Eight:IMG_1893
-      let url = `https://res.cloudinary.com/de-demo/video/upload/c_scale,h_400,w_600/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,h_400,${layer},w_600/v1529791058/Projects/black.mp4`
-      return url 
+      const url = `https://res.cloudinary.com/de-demo/video/upload/c_scale,h_400,w_600/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,h_400,${layer},w_600/v1529791058/Projects/black.mp4`
+      return url;
     },
 
-    createPreviewVideo(asset){
+    createPreviewVideo(asset) {
       console.log('Asset: ' , asset);
-      if (asset.resource_type === 'image'){
-        let url = this.createVideoFromImage(asset);
-        let video = { url:url, starttime:0 , duration: 5 }
+      if (asset.resource_type === 'image') {
+        const url = this.createVideoFromImage(asset);
+        const video = { url:url, starttime:0 , duration: 5 };
           console.log('createVideoFromImage',video);
           return video;
       }else if (asset.resource_type === 'video') {
-       let duration = Math.floor(asset.duration);
-       let url = asset.secure_url.replace('.png','.mp4').replace('.jpg','.mp4').
-      replace('upload/',`upload/w_600,so_0,du_${duration}/`);
-      let video = { url:url, starttime:0 , duration: duration }
-          console.log(video);
-          return video;
+       const duration = Math.floor(asset.duration);
+       const url = asset.secure_url
+        .replace('.png','.mp4').replace('.jpg','.mp4')
+        .replace('upload/',`upload/w_600,so_0,du_${duration}/`);
+        const video = { url, starttime:0 , duration };
+        console.log(video);
+        return video;
       }
     }
     
   },
-  mounted(){
+  mounted() {
     this.cl = cloudinary;
     this.fetchAssets();
   }
@@ -126,6 +127,5 @@ export default {
   overflow-y: auto;
   max-height: 400px;
   vertical-align: baseline;
-
 }
 </style>

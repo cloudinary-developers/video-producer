@@ -26,14 +26,9 @@
 	      <v-icon>vertical_align_top</v-icon>
 	  </v-btn>
 	<div>
-<v-spacer></v-spacer>
-		
+<v-spacer></v-spacer>		
  	</div>   
   </v-layout>	
-
-  
-
-
 </div>
 </template>
 
@@ -51,46 +46,41 @@ export default {
     src: '',
     player: {},
   }),
-  methods:{
+  methods: {
 
-  	updateDisplay: function(event){
+  	updateDisplay: event => {
   		this.currenttime = event.target.currentTime;
   		this.duration = event.target.duration;
   	},
-  	trimStart: function(event){
+  	trimStart: event => {
   		this.startoffset = this.currenttime;
   	},
-  	trimEnd: function(event){
+  	trimEnd: event => {
   		this.endoffset = this.currenttime;
   	},
-  	previewClip: function(event){
+  	previewClip: event => {
   		const player = document.querySelector('#videoPlayerPreview');
-  		
-
   		const template = `https://res.cloudinary.com/de-demo/video/upload/w_600,so_${this.startoffset},e0_${this.endoffset}/v1528907842/${asset.public_id}`
-
-  		alert(template);
+  		console.log(template);
   	}
-
   },
   
   watch: {
 
     // whenever question changes, this function will run
-    source: function (newData, oldData) {
+    source: (newData, oldData) => {
     	console.log('Watching:', newData,oldData)
     	this.src = newData;
-    	let player = document.querySelector('#videoPlayerPreview');
+    	const player = document.querySelector('#videoPlayerPreview');
     	player.src = newData;
     }
   },
 
-  mounted(){
-  this.seektime = 0
-  this.duration = 0;
-  this.player = document.querySelector('#videoPlayerPreview');
-  this.src = this.source;
-
+  mounted() {
+    this.seektime = 0
+    this.duration = 0;
+    this.player = document.querySelector('#videoPlayerPreview');
+    this.src = this.source;
   }
 
 };

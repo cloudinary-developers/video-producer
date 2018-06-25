@@ -19,7 +19,7 @@ import Grid from 'vue-js-grid'
 Vue.use(Grid)
 
 export default {
-  name: "Track",
+  name: 'Track',
   components: { Container, Draggable },
   data () {
   return {

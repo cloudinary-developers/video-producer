@@ -13,18 +13,18 @@
 </template>
 
 <script>
-import { Container, Draggable } from "vue-smooth-dnd";
-import { applyDrag, generateItems } from "utils";
+import { Container, Draggable } from 'vue-smooth-dnd';
+import { applyDrag, generateItems } from 'utils';
 export default {
-  name: "Track",
+  name: 'Track',
   components: { Container, Draggable },
   data: function() {
     return {
-      items: generateItems(50, i => ({ id: i, data: "Draggable " + i }))
+      items: generateItems(50, i => ({ id: i, data: `Draggable ${i}` }))
     };
   },
   methods: {
-    onDrop: function(dropResult) {
+    onDrop: dropResult => {
       this.items = applyDrag(this.items, dropResult);
     }
   }

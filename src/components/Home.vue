@@ -65,12 +65,12 @@ export default {
   data() {
     return {
       asset: {},
-      source: "https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4"
+      source: 'https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4'
     };
   },
   methods: {
 
-    refreshAssets: function (){      
+    refreshAssets: () => {      
       this.$refs.assetlist.fetchAssets(); 
     },
     refreshList: function(assets){
@@ -78,11 +78,11 @@ export default {
       // todo add toast to show what was added.
       this.$refs.assetlist.fetchAssets(); 
     },
-    trimVideo : function(video){     
+    trimVideo : video => {     
       this.source = video.url.replace('.mov','.mp4');
       this.asset = video;
-      alert(this.asset);
-      console.log(this.source);      
+      console.log(this.source);
+      console.log(this.asset);
     }
   }
 };
@@ -90,6 +90,5 @@ export default {
 
 <style>
 
- 
 </style>
 

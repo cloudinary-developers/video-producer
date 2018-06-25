@@ -13,7 +13,7 @@ export default {
   data: () => ({
     tracks: []
   }),
-  mounted(){
+  mounted() {
     
   }
 

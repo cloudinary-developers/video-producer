@@ -15,8 +15,7 @@
 export default {
   name: 'breadcrumbs',
   data: () => ({
-    items: [
-      {
+    items: [{
         text: 'Projects',
         disabled: false
       },
@@ -27,13 +26,10 @@ export default {
       {
         text: '8Eight',
         disabled: false
-      }
-    ]
+      }]
   }),
-  mounted(){
-
-    var wsURL = "https://video-producer.cloudinary.auth0-extend.com/list-resources";
-
+  mounted() {
+    const wsURL = 'https://video-producer.cloudinary.auth0-extend.com/list-resources';
   }
 
 };
