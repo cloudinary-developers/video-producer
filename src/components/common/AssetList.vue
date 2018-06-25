@@ -120,7 +120,7 @@ export default {
       const sanitized = asset.public_id.replace(/\//g,":");
       const layer = `l_${sanitized}`;
       //l_Projects:Cloudinary:8Eight:IMG_1893
-      const url = `https://res.cloudinary.com/de-demo/video/upload/c_scale,h_400,w_600/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,h_400,${layer},w_600/v1529791058/Projects/black.mp4`
+      const url = `https://res.cloudinary.com/de-demo/video/upload/w_400,ar_16:9,c_fill/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,${layer},w_400/v1529791058/Projects/black.mp4`
       return url;
     },
 
@@ -131,7 +131,7 @@ export default {
       } else if (asset.resource_type === 'video') {
        const url = asset.secure_url
         .replace('.png',' .mp4').replace('.jpg', '.mp4')
-        .replace('upload/', 'upload/w_600/');
+        .replace('upload/', 'upload/w_400,ar_16:9,c_fill/');
         return url;
       }
     }

@@ -1,24 +1,12 @@
 <template>
 <div class="video-container">
-	<v-layout align-center justify-space-around>
-  		<v-btn dark small fab color="primary" @click="previewClip">
-	      <v-icon>view_array</v-icon>
-	  	</v-btn>
-      <v-btn dark small fab color="primary" @click="generateURL">
-        <v-icon>add_to_queue</v-icon>
-      </v-btn>
-      <v-btn dark small fab color="success" @click="openClip">
-        <v-icon>open_in_new</v-icon>
-      </v-btn>
-	</v-layout>
-		<v-container align-center justify-space-around>
-	  		<video ref="videoplayer" v-on:timeupdate="updateDisplay($event)" controls="yes" name="media" id="videoPlayerPreview">
-  			</video>
-	  	</v-container>
+  <v-layout align-center justify-center-around>
+    <video class="playerContainer" ref="videoplayer" v-on:timeupdate="updateDisplay($event)" controls="yes" name="media" id="videoPlayerPreview">
+    </video>
+  </v-layout>
 
- 	<v-layout align-center justify-space-around>
-    
-		<v-btn dark small fab color="primary" @click="trimStart" class="rotateLeft">
+  <v-toolbar class="playerContainer" dense dark color="secondary">
+    <v-btn dark small fab color="primary" @click="trimStart" class="rotateLeft">
 	      <v-icon>vertical_align_bottom</v-icon>
 	  </v-btn>
 		<v-spacer></v-spacer>
@@ -26,14 +14,24 @@
   		<span v-text="playheadPosition"></span> of <span v-text="duration"></span>
  	</div>
  	<v-spacer></v-spacer>
+
 	  
 	   <v-btn dark small fab color="primary" @click="trimEnd" class="rotateRight">
 	      <v-icon>vertical_align_top</v-icon>
 	  </v-btn>
-	<div>
-<v-spacer></v-spacer>		
- 	</div>   
-  </v-layout>	
+  </v-toolbar> 
+  <v-container align-center justify-space-around>
+    <v-btn dark small fab color="primary" @click="previewClip">
+      <v-icon>play_circle_outline</v-icon>
+    </v-btn>
+    <v-btn dark small fab color="primary" @click="generateURL">
+      <v-icon>add_to_queue</v-icon>
+    </v-btn>
+    <v-btn dark small fab color="success" @click="openClip">
+      <v-icon>open_in_new</v-icon>
+    </v-btn>
+	</v-container>
+
 </div>
 </template>
 
@@ -168,6 +166,9 @@ export default {
     -o-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
+}
+.playerContainer {
+  width: 400px;
 }
 
 </style>

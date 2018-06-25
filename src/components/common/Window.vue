@@ -3,7 +3,7 @@
 
   <v-toolbar dense dark color="secondary">
     <slot name="window-header"></slot>
-      </v-toolbar> 
+  </v-toolbar> 
     <div class="window__content">
       <slot name="window-content"></slot>
     </div>
