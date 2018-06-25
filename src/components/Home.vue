@@ -24,7 +24,7 @@
                   <v-toolbar-title class="white--text"> Now Playing </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <VideoPlayer id="videoPlayer" :source="source" :clip="clip"></VideoPlayer>
+           <VideoPlayer id="videoPlayer" :source="source" :clip="clip" v-on:add-track="addToStoryBoard($event)"></VideoPlayer>
           </template>
         </Window>
       </v-flex>
@@ -37,7 +37,7 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <Storyboard ref="storyboardContainer"  v-on:add-track="addToStoryBoard($event)" :trackClip="trackClip"></Storyboard>
+           <Storyboard ref="storyboardContainer" v-on:preview-click="trimVideo($event)"  :editedClip="editedClip"></Storyboard>
           </template>
         </Window>
       </v-flex>
@@ -65,8 +65,8 @@ export default {
   data() {
     return {
       clip: {},
-      trackClip: {},
-      source: 'https://res.cloudinary.com/de-demo/video/upload/du_11.5,q_auto,so_30,w_600/v1528932336/Capitol360/shorter-ar.mp4'
+      editedClip: {},
+      source: ''
     };
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
     },
     addToStoryBoard: function(clip) {
       console.log('ADD TO STORYBOARD:', clip);
-      this.trackClip = clip;
+      this.editedClip = clip;
     }
   }
 };
