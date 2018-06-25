@@ -1,7 +1,7 @@
 <template>
   <div class="track">
     <v-btn dark small fab color="primary" @click="generateURL">
-      <v-icon>play</v-icon></v-btn>
+      <v-icon>movie</v-icon></v-btn>
     <v-layout align-center justify-space-around>
       <v-layout row wrap class="trackGrid">
   
