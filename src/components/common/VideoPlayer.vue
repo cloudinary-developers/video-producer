@@ -48,17 +48,17 @@ export default {
   }),
   methods: {
 
-  	updateDisplay: event => {
+  	updateDisplay: function(event) {
   		this.currenttime = event.target.currentTime;
   		this.duration = event.target.duration;
   	},
-  	trimStart: event => {
+  	trimStart: function(event) {
   		this.startoffset = this.currenttime;
   	},
-  	trimEnd: event => {
+  	trimEnd: function(event) {
   		this.endoffset = this.currenttime;
   	},
-  	previewClip: event => {
+  	previewClip: function(event) {
   		const player = document.querySelector('#videoPlayerPreview');
   		const template = `https://res.cloudinary.com/de-demo/video/upload/w_600,so_${this.startoffset},e0_${this.endoffset}/v1528907842/${asset.public_id}`
   		console.log(template);
