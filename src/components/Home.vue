@@ -37,7 +37,7 @@
             <v-toolbar-title class="white--text"> Timeline </v-toolbar-title>
           </template>
           <template slot="window-content">
-           <Storyboard ref="storyboard" v-on:add-track="addToStoryBoard($event)" :trackClip="trackClip"></Storyboard>
+           <Storyboard ref="storyboardContainer"  v-on:add-track="addToStoryBoard($event)" :trackClip="trackClip"></Storyboard>
           </template>
         </Window>
       </v-flex>

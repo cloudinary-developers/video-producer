@@ -39,20 +39,18 @@
 export default {
   props: ['source', 'clip'],
   name: 'video-player',
-  data: function() {
-    return {
+  data: () =>({
       playheadPosition: 0,
       duration: 0,
       startoffset: 0,
       endoffset: 0,
       src: null,
       clips: [],
-      currentClip: this.clip || {}
-    }
-  },
+      currentClip: {}
+  }),
 
   methods: {
-  	updateDisplay: function(event) {
+  	updateDisplay(event) {
   		this.playheadPosition = event.target.currentTime;
       this.duration = event.target.duration;
     },
@@ -62,7 +60,7 @@ export default {
     duration: 8
     startoffset: 2
     */
-  	trimStart: function(event) {
+  	trimStart(event) {
       this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
       this.startoffset = parseFloat(this.playheadPosition).toFixed(2);
       this.endoffset = parseFloat(this.duration + this.playheadPosition).toFixed(2);
@@ -74,7 +72,7 @@ export default {
     endoffset: 2
     */
    
-  	trimEnd: function(event) {
+  	trimEnd(event) {
       if (this.startoffset === 0) {
         // this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
         this.endoffset = parseFloat(this.playheadPosition).toFixed(2);
@@ -91,14 +89,13 @@ export default {
         this.duration = parseFloat(this.endoffset - this.startoffset).toFixed(2);
       }
     },
-    generateURL: function() {
+    generateURL() {
       this.currentClip.trim_info.start_offset = this.startoffset;
       this.currentClip.trim_info.end_offset = this.endoffset;
     
       const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
       const public_id = this.currentClip.asset_info.public_id;
       const options = {
-        // duration: this.duration,
         endOffset: this.endoffset,
         startOffset: this.startoffset,
         resource_type: 'video',
@@ -106,34 +103,25 @@ export default {
       };
 
       const url = cl.url(public_id, options);
-      // const player = this.$refs.videoplayer;
-      // // player.src = url;
-      // player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
-      // player.play();
 
       this.currentClip.transformations = [];
       this.currentClip.transformations.push(options);
       this.currentClip.transformationVideoURL = url;
-      this.addToTrack(this.currentClip);
-      
+      console.log('ADD TO TRACK', this.currentClip);
+      this.$emit('add-track', this.currentClip);            
     },
-  	previewClip: function(event) {
+  	previewClip(event) {
       const player = this.$refs.videoplayer;
       player.src = `${this.currentClip.video_url}#t=${this.startoffset},${this.endoffset}`;
       player.play();
     },
-    openClip: function() {
+    openClip() {
       this.generateURL();
       const url = this.currentClip.transformationVideoURL;
       console.log(url);
       window.open(url, '_blank');
-    },
-    addToTrack(clip) {
-      // this.clips.push(this.currentClip);
-      console.log('ADD TO TRACK', clip);
-      this.$emit('add-track', clip);
-      
     }
+  
   },
   
   watch: {
