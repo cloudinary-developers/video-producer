@@ -53,6 +53,7 @@ export default {
   	updateDisplay(event) {
   		this.playheadPosition = event.target.currentTime;
       this.duration = event.target.duration;
+      this.currentClip.trim_info.duration = event.target.duration;
     },
     /*
     10 sec
@@ -61,7 +62,7 @@ export default {
     startoffset: 2
     */
   	trimStart(event) {
-      this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
+     // this.duration = parseFloat(this.duration - this.playheadPosition).toFixed(2);
       this.startoffset = parseFloat(this.playheadPosition).toFixed(2);
       this.endoffset = parseFloat(this.duration + this.playheadPosition).toFixed(2);
     },
@@ -86,7 +87,7 @@ export default {
       } else {
         // this.duration = parseFloat(this.duration - this.playheadPosition - this.startoffset).toFixed(2);
         this.endoffset = parseFloat(this.playheadPosition).toFixed(2);
-        this.duration = parseFloat(this.endoffset - this.startoffset).toFixed(2);
+        //this.duration = parseFloat(this.endoffset - this.startoffset).toFixed(2);
       }
     },
     generateURL() {
@@ -99,13 +100,16 @@ export default {
         endOffset: this.endoffset,
         startOffset: this.startoffset,
         resource_type: 'video',
-        format: 'mp4'
+        format: 'mp4',
+        // width: 400,
+        crop: 'fill',
+        flags: 'splice'
       };
 
       const url = cl.url(public_id, options);
 
-      this.currentClip.transformations = [];
-      this.currentClip.transformations.push(options);
+      this.currentClip.transformations = options; //[];
+     // this.currentClip.transformations.push(options);
       this.currentClip.transformationVideoURL = url;
       console.log('ADD TO TRACK', this.currentClip);
       this.$emit('add-track', this.currentClip);            

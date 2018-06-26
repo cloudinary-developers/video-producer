@@ -93,7 +93,7 @@ export default {
             trim_info: {
               start_offset: 0,
               end_offset: 0,
-              duration: asset.resource_type === 'video' ? asset.duration : null
+              duration: (asset.resource_type === 'video' )? asset.duration : null
             }  
           }
           return clip;
@@ -120,7 +120,7 @@ export default {
       const sanitized = asset.public_id.replace(/\//g,":");
       const layer = `l_${sanitized}`;
       //l_Projects:Cloudinary:8Eight:IMG_1893
-      const url = `https://res.cloudinary.com/de-demo/video/upload/w_400,ar_16:9,c_fill/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,${layer},w_400/v1529791058/Projects/black.mp4`
+      const url = `https://res.cloudinary.com/de-demo/video/upload/w_400,ar_16:9,c_fill/du_5,so_0/a_0,ar_16:9,b_auto,c_lpad,g_center,${layer},w_400/Projects/black.mp4`
       return url;
     },
 
