@@ -47,7 +47,71 @@ export default {
       this.$emit('preview-click', clip);
     },
 
-     generateURL() {
+    generateURLv3 (video1,video2){
+      const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
+      cl.video(video1.public_id, {
+        transformation: [
+            {width: 300, height: 200, crop: "fill"},
+            {overlay: `video:${video2.public_id}`, flags: "splice", width: 300, height: 200, crop: "fill"}
+            ]})
+
+    },
+
+    generateURLv2(){
+
+      const transformations = [];
+      const clip0_public_id = this.clips[0].asset_info.public_id;
+      const clip0_option = this.clips[0].transformations;
+      console.log(clip0_option);
+
+      let nextSO = 0;
+
+      function = build
+
+       let transArr =  this.clips.forEach((clip) => { 
+      console.log(clip)
+      const layer = clip.asset_info.public_id.replace(/\//g,":");
+      let vlayer = `video:${layer}`
+
+
+    let line1 =  {overlay: vlayer, startOffset: clip.trim_info.start_offset, endOffset: clip.trim_info.end_offset};
+    let line2 =  {startOffset: "0", flags: ["layer_apply", "splice"], width: 400, crop: "scale"};
+
+    const nextSO = (clip.trim_info.end_offset - clip.trim_info.start_offset)
+
+
+      const tranform = { 
+                        width:400, 
+                        overlay: vlayer, 
+                        startOffset:clip.trim_info.start_offset,  
+                        endOffset:clip.trim_info.end_offset 
+                      }
+            .push(tranform);
+  });
+
+
+
+
+      const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
+
+      const options =  {
+          transformation: [
+          {width: 400, duration: "12", crop: "scale"},
+          {overlay: "video:MLB2", startOffset: "2", endOffset: "6"},
+          {startOffset: "0", flags: ["layer_apply", "splice"], width: 400, crop: "scale"},
+          {overlay: "video:MLB2", startOffset: "20", endOffset: "24"},
+          {startOffset: "4", flags: ["layer_apply", "splice"], width: 400, crop: "scale"},
+          {overlay: "video:MLB2", startOffset: "31", endOffset: "35"},
+          {startOffset: "8", flags: ["layer_apply", "splice"], width: 400, crop: "scale"},
+          {audioCodec: "none"}
+          ]}
+
+      cl.url('clip0_public_id', options);
+       console.log(url);
+       window.open(url, '_blank');
+    },
+
+    generateURL() {
       
       const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
 
