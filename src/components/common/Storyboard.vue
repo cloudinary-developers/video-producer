@@ -1,6 +1,6 @@
 <template>
   <div class="track">
-    <v-btn dark small fab color="primary" @click="generateURL">
+    <v-btn dark small fab color="primary" @click="generateURLv3">
       <v-icon>movie</v-icon></v-btn>
     <v-layout align-center justify-space-around>
       <v-layout row wrap class="trackGrid">
@@ -47,20 +47,47 @@ export default {
       this.$emit('preview-click', clip);
     },
 
-    generateURLv3 (video1,video2){
+    generateURLv3 (){
+
+      const video1 = new Object();
+      const video2 = new Object();
+
+      console.log('>>>> ', this.clips[0]);
+
+      video1_public_id = this.clips[0].asset_info.public_id;
+      video2_public_id = this.clips[1].asset_info.public_id;
+
+      // const clip0_option = this.clips[0].transformations;
+      // console.log(clip0_option);
+
+      const transformations = [];
+      // const clip0_public_id = this.clips[0].asset_info.public_id;
+      // const clip0_option = this.clips[0].transformations;
+      // console.log(clip0_option);
+
       const cl = new cloudinary.Cloudinary({ cloud_name: 'de-demo' });
-      cl.video(video1.public_id, {
+      const url = cl.video(video1_public_id, {
         transformation: [
             {width: 300, height: 200, crop: "fill"},
-            {overlay: `video:${video2.public_id}`, flags: "splice", width: 300, height: 200, crop: "fill"}
+            {overlay: `video:${video2_public_id}`, flags: "splice", width: 300, height: 200, crop: "fill"}
             ]})
+
+
+      // const url = cl.url(clip0_public_id, clip0_option);
+       console.log(url);
+       window.open(url, '_blank');
 
     },
 
     generateURLv2(){
 
       const transformations = [];
-      const clip0_public_id = this.clips[0].asset_info.public_id;
+      const video1 = {};
+      const video2 = {};
+
+      console.log('>>>> ', this.clips[0]);
+
+      const video1.public_id = this.clips[0].asset_info.public_id;
       const clip0_option = this.clips[0].transformations;
       console.log(clip0_option);
 
